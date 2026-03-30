@@ -8,7 +8,7 @@ const BORDER = "#1e2025";
 const MUTED  = "#6b7280";
 const WHITE  = "#e5e7eb";
 
-/* 9 NSM1 event steps */
+/* 9 ZAP1 event steps */
 const STEPS = [
   { type: 0x01, name: "PROGRAM_ENTRY",       color: "#22d3ee", desc: "Wallet registers with the Nordic Shield mining program.",
     fields: [{ key: "wallet", label: "Wallet t-address", placeholder: "t1ExampleWalletAddr..." }] },
@@ -132,7 +132,7 @@ function hexToBytes(hex) {
 function bytesToHex(b) { return Array.from(b, x => x.toString(16).padStart(2,"0")).join(""); }
 
 function encodeMemo(type, payload) {
-  return new TextEncoder().encode(`NSM1:${type.toString(16).padStart(2,"0")}:${payload}`);
+  return new TextEncoder().encode(`ZAP1:${type.toString(16).padStart(2,"0")}:${payload}`);
 }
 
 function lenPrefix(data) {
@@ -150,7 +150,7 @@ let backend = "js";
 
 async function initWasm() {
   try {
-    const mod = await import(/* @vite-ignore */ "/wasm/nsm1_verify_wasm.js");
+    const mod = await import(/* @vite-ignore */ "/wasm/zap1_verify_wasm.js");
     await mod.default();
     wasmModule = mod;
     backend = "wasm";
@@ -431,7 +431,7 @@ export default function App() {
   const downloadBundle = useCallback(() => {
     if (!tree || !leaves.length) return;
     const bundle = {
-      version: "NSM1-SIM-1.0",
+      version: "ZAP1-SIM-1.0",
       generated: new Date().toISOString(),
       backend,
       wallet: leaves[0]?.fields?.wallet || "unknown",
@@ -452,7 +452,7 @@ export default function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `nsm1-lifecycle-${leaves[0]?.fields?.wallet?.slice(0,8) || "sim"}-${Date.now()}.json`;
+    a.download = `zap1-lifecycle-${leaves[0]?.fields?.wallet?.slice(0,8) || "sim"}-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }, [tree, leaves]);
@@ -472,10 +472,10 @@ export default function App() {
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 40 }}>
           <h1 style={{ fontFamily: "Space Grotesk", fontWeight: 700, fontSize: 28, color: WHITE, marginBottom: 8 }}>
-            NSM1 Lifecycle Simulator
+            ZAP1 Lifecycle Simulator
           </h1>
           <p style={{ color: MUTED, fontSize: 14, maxWidth: 560, margin: "0 auto", lineHeight: 1.6 }}>
-            Walk through all 9 NSM1 lifecycle events. Each step computes a BLAKE2b-256 leaf hash
+            Walk through all 9 ZAP1 lifecycle events. Each step computes a BLAKE2b-256 leaf hash
             and builds a Merkle tree client-side. Download the proof bundle at the end.
           </p>
           <div style={{
@@ -631,7 +631,7 @@ export default function App() {
         {/* Footer */}
         <div style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: `1px solid ${BORDER}` }}>
           <p style={{ color: MUTED, fontSize: 12 }}>
-            NSM1 Lifecycle Simulator - Frontier Compute
+            ZAP1 Lifecycle Simulator - Frontier Compute
           </p>
         </div>
       </div>

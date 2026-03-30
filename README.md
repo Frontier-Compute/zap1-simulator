@@ -1,10 +1,10 @@
-# nsm1-simulator
+# zap1-simulator
 
-Interactive NSM1 lifecycle event simulator.
+Interactive ZAP1 lifecycle event simulator.
 
 ## What it does
 
-Walk through all 9 NSM1 event types in order:
+Walk through all 9 ZAP1 event types in order:
 
 1. `PROGRAM_ENTRY` - wallet registration
 2. `OWNERSHIP_ATTEST` - operator attestation
@@ -22,7 +22,7 @@ When all 9 events are done, download a JSON proof bundle containing every leaf h
 
 ## Hashing backend
 
-Tries to load the `nsm1-verify` WASM module at startup. Falls back to a pure JS BLAKE2b-256 implementation if WASM is unavailable. The UI shows which backend is active.
+Tries to load the `zap1-verify` WASM module at startup. Falls back to a pure JS BLAKE2b-256 implementation if WASM is unavailable. The UI shows which backend is active.
 
 ## Run locally
 
@@ -35,8 +35,8 @@ Vite dev server starts on `http://localhost:5173`. No backend needed - everythin
 
 ## Links
 
-- [NSM1 protocol spec](https://github.com/Frontier-Compute/nsm1/blob/main/ONCHAIN_PROTOCOL.md)
-- [nsm1-verify crate](https://github.com/Frontier-Compute/nsm1-verify)
+- [ZAP1 protocol spec](https://github.com/Frontier-Compute/zap1/blob/main/ONCHAIN_PROTOCOL.md)
+- [zap1-verify crate](https://github.com/Frontier-Compute/zap1-verify)
 
 ## License
 

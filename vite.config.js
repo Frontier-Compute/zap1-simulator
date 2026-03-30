@@ -4,7 +4,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ["/wasm/nsm1_verify_wasm.js"],
+      external: ["/wasm/zap1_verify_wasm.js"],
     },
   },
 });

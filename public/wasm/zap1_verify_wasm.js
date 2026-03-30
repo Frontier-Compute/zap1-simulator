@@ -1,4 +1,4 @@
-/* @ts-self-types="./nsm1_verify_wasm.d.ts" */
+/* @ts-self-types="./zap1_verify_wasm.d.ts" */
 
 /**
  * Compute the leaf hash for an OWNERSHIP_ATTEST event.
@@ -246,7 +246,7 @@ function __wbg_get_imports() {
     };
     return {
         __proto__: null,
-        "./nsm1_verify_wasm_bg.js": import0,
+        "./zap1_verify_wasm_bg.js": import0,
     };
 }
 
@@ -510,7 +510,7 @@ async function __wbg_init(module_or_path) {
     }
 
     if (module_or_path === undefined) {
-        module_or_path = new URL('nsm1_verify_wasm_bg.wasm', import.meta.url);
+        module_or_path = new URL('zap1_verify_wasm_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 
