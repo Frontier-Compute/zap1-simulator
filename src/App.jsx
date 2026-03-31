@@ -10,7 +10,7 @@ const WHITE  = "#e5e7eb";
 
 /* 9 ZAP1 event steps */
 const STEPS = [
-  { type: 0x01, name: "PROGRAM_ENTRY",       color: "#22d3ee", desc: "Wallet registers with the Nordic Shield mining program.",
+  { type: 0x01, name: "PROGRAM_ENTRY",       color: "#22d3ee", desc: "Wallet registers with the attestation program.",
     fields: [{ key: "wallet", label: "Wallet t-address", placeholder: "t1ExampleWalletAddr..." }] },
   { type: 0x02, name: "OWNERSHIP_ATTEST",    color: "#a78bfa", desc: "Operator attests ownership of this wallet.",
     fields: [{ key: "wallet", label: "Wallet", placeholder: "t1..." }, { key: "operator", label: "Operator ID", placeholder: "op_..." }] },
