@@ -605,7 +605,7 @@ export default function App() {
                   Lifecycle Complete
                 </h3>
                 <p style={{ color: MUTED, fontSize: 13, marginBottom: 16 }}>
-                  All 9 events committed. Your Merkle root is ready for anchoring.
+                  All events committed. Your Merkle root is ready for anchoring.
                 </p>
                 <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
                   <button onClick={downloadBundle} style={{

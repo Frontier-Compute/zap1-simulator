@@ -20,7 +20,7 @@ Walk through all 9 ZAP1 event types in order:
 
 Each step computes a BLAKE2b-256 leaf hash (with `NordicShield_` personalization), then builds a Merkle tree client-side using `NordicShield_MRK` node personalization. The tree visualization updates live as you add leaves.
 
-When all 9 events are done, download a JSON proof bundle containing every leaf hash, the full Merkle tree layers, and the root.
+When all events are done, download a JSON proof bundle containing every leaf hash, the full Merkle tree layers, and the root.
 
 ## Hashing backend
 
