@@ -28,6 +28,12 @@ const STEPS = [
     fields: [{ key: "wallet", label: "Wallet", placeholder: "t1..." }, { key: "reason", label: "Reason", placeholder: "contract_end" }] },
   { type: 0x09, name: "MERKLE_ROOT",         color: "#f97316", desc: "Current lifecycle tree root anchored to Zcash.",
     fields: [{ key: "wallet", label: "Wallet", placeholder: "t1..." }, { key: "root", label: "Root hash", placeholder: "024e365..." }] },
+  { type: 0x0D, name: "GOVERNANCE_PROPOSAL", color: "#f472b6", desc: "On-chain governance proposal submitted for voting.",
+    fields: [{ key: "wallet", label: "Wallet hash", placeholder: "dao_operator" }, { key: "proposal_id", label: "Proposal ID", placeholder: "ZIP-302-adoption" }, { key: "proposal_hash", label: "Proposal content hash", placeholder: "sha256 of proposal text" }] },
+  { type: 0x0E, name: "GOVERNANCE_VOTE",     color: "#38bdf8", desc: "Vote cast on a governance proposal.",
+    fields: [{ key: "wallet", label: "Voter wallet hash", placeholder: "alice" }, { key: "proposal_id", label: "Proposal ID", placeholder: "ZIP-302-adoption" }, { key: "vote_commitment", label: "Vote commitment", placeholder: "approve" }] },
+  { type: 0x0F, name: "GOVERNANCE_RESULT",   color: "#a3e635", desc: "Final tally result committed for a governance proposal.",
+    fields: [{ key: "wallet", label: "Wallet hash", placeholder: "dao_operator" }, { key: "proposal_id", label: "Proposal ID", placeholder: "ZIP-302-adoption" }, { key: "result_hash", label: "Result hash", placeholder: "sha256 of tally data" }] },
 ];
 
 /* BLAKE2b-256 pure-JS fallback */
@@ -171,6 +177,9 @@ function computeLeafHash(eventType, fields) {
     case 0x07: payloadStr = `${fields.wallet||""}:${fields.new_wallet||""}`; break;
     case 0x08: payloadStr = `${fields.wallet||""}:${fields.reason||""}`; break;
     case 0x09: payloadStr = `${fields.wallet||""}:${fields.root||""}`; break;
+    case 0x0D: payloadStr = `${fields.wallet||""}:${fields.proposal_id||""}:${fields.proposal_hash||""}`; break;
+    case 0x0E: payloadStr = `${fields.wallet||""}:${fields.proposal_id||""}:${fields.vote_commitment||""}`; break;
+    case 0x0F: payloadStr = `${fields.wallet||""}:${fields.proposal_id||""}:${fields.result_hash||""}`; break;
     default: payloadStr = "";
   }
 
@@ -311,7 +320,7 @@ function StepCard({ step, index, isActive, isCurrent, isComplete, leafHash, fiel
         color: step.color, borderRadius: 20, padding: "2px 10px", fontSize: 12,
         fontFamily: "JetBrains Mono", fontWeight: 600,
       }}>
-        {isComplete ? "✓" : `${index + 1}/9`}
+        {isComplete ? "✓" : `${index + 1}/${STEPS.length}`}
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
@@ -475,7 +484,7 @@ export default function App() {
             ZAP1 Lifecycle Simulator
           </h1>
           <p style={{ color: MUTED, fontSize: 14, maxWidth: 560, margin: "0 auto", lineHeight: 1.6 }}>
-            Walk through all 9 ZAP1 lifecycle events. Each step computes a BLAKE2b-256 leaf hash
+            Walk through all {STEPS.length} ZAP1 lifecycle events. Each step computes a BLAKE2b-256 leaf hash
             and builds a Merkle tree client-side. Download the proof bundle at the end.
           </p>
           <div style={{
@@ -557,7 +566,7 @@ export default function App() {
             {leaves.length > 0 && (
               <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 12, padding: 16, marginBottom: 16 }}>
                 <div style={{ fontSize: 11, color: MUTED, fontFamily: "JetBrains Mono", marginBottom: 10 }}>
-                  LEAVES ({leaves.length}/9)
+                  LEAVES ({leaves.length}/{STEPS.length})
                 </div>
                 {leaves.map((l, i) => (
                   <div key={i} style={{
@@ -583,13 +592,13 @@ export default function App() {
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
                 <span style={{ fontSize: 11, color: MUTED, fontFamily: "JetBrains Mono" }}>Progress</span>
                 <span style={{ fontSize: 11, color: GOLD, fontFamily: "JetBrains Mono" }}>
-                  {leaves.length}/9
+                  {leaves.length}/{STEPS.length}
                 </span>
               </div>
               <div style={{ height: 4, background: BORDER, borderRadius: 2, overflow: "hidden" }}>
                 <div style={{
                   height: "100%", background: GOLD, borderRadius: 2,
-                  width: `${(leaves.length / 9) * 100}%`, transition: "width 0.4s ease",
+                  width: `${(leaves.length / STEPS.length) * 100}%`, transition: "width 0.4s ease",
                 }} />
               </div>
             </div>
